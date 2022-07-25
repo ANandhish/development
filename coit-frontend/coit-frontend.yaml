@@ -1,0 +1,23 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: coit-frontend
+  namespace: default
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/max-scale: "5"
+      # autoscaling.knative.dev/min-scale: "3"
+    spec:
+      containers:
+        - image: coitlearning/coit-frontend:v15
+          env:
+            - name: COIT_BACKEND_URL
+              value: "http://coitlearning/backend1:1.102.12.12.45.sslip.io"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+
+
+#This is a test commit from dev branch
